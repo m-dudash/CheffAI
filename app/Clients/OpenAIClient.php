@@ -14,22 +14,31 @@ class OpenAIClient
 
     public function generateRecipe(string $dish):array
     {
-        $promt = "Create a recipe for the dish \"$dish\".
+        $prompt = "Create a recipe for the dish \"$dish\".
                    The 'recipe' field must contain step-by-step cooking instructions.
                    The 'ingredients' field should be an array with quantities.
                    The 'nutrition' field should contain calories, proteins, fats, and carbohydrates.
                    Return everything strictly in JSON format with keys: recipe, ingredients, nutrition.";
 
-        $responce = $this->client->chat()->create([
-           'model'=>'gpt-4o-mini',
-            'message'=>[
-                'role'=>'user',
-                'content'=>$promt,
+        $response = $this->client->chat()->create([
+            'model' => 'gpt-3.5-turbo',
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => $prompt,
+                ],
             ],
         ]);
 
-        $content = $responce->choices[0]->message->content;
+        $content = $response->choices[0]->message->content;
 
+        if ($content === null) {
+            return [
+                'recipe' => "Error: failed to parse AI response. Please try again.",
+                'ingredients' => [],
+                'nutrition' => [],
+            ];
+        }
         return json_decode($content, true);
     }
 }
