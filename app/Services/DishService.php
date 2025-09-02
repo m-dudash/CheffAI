@@ -3,23 +3,21 @@
 namespace App\Services;
 
 use App\DTOs\DishDTO;
+use App\Clients\OpenAIClient;
 
 class DishService
 {
+    public function __construct(private OpenAIClient $client)
+    {}
+
     public function generateDish(string $dish) : DishDTO
     {
+        $data = $this->client->generateRecipe($dish);
+
         return new DishDTO(
-            recipe: "Рецепт приготовления {$dish}. Пожарить в сковородке",
-            ingredients: [
-                'Курица - 1 кг',
-                'Соль - по вкусу',
-                'Перец - по вкусу'
-            ],
-            nutrition: [
-                'calories' => 250,
-                'proteins' => 30,
-                'fats' => 15,
-                'carbs' => 5
-            ]);
+            recipe: $data['recipe'] ?? "",
+            ingredients: $data['ingredients'] ?? [],
+            nutrition: $data['nutrition'] ?? []
+        );
     }
 }
