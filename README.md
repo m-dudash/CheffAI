@@ -1,61 +1,108 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# CheffAI
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**CheffAI** is a web application that helps users cook dishes using artificial intelligence.  
+Users type the name of a dish into a chat, and the AI returns: a step-by-step recipe, a list of ingredients, and nutritional information.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 MVP Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Generate a recipe with step-by-step cooking instructions.  
+- Get a list of ingredients with exact quantities.  
+- Receive nutritional information (calories, proteins, fats, carbohydrates).  
+- AI response is returned as JSON for frontend integration.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🛠 Technologies
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Backend:** Laravel (PHP)  
+- **OpenAI API (GPT-3.5 / GPT-4)**  
+- DTOs and service classes for clean architecture  
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ⚙ Installation & Setup
 
-## Laravel Sponsors
+1. Clone the repository:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    ```bash
+    git clone https://github.com/m-dudash/CheffAI
+    cd CheffAi
+    ```
 
-### Premium Partners
+2. Install dependencies:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+    ```bash
+    composer install
+    ```
 
-## Contributing
+3. Configure `.env`:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-## Code of Conduct
+4. Add your OpenAI API key in `.env`:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    ```env
+    OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxx
+    ```
 
-## Security Vulnerabilities
+5. Start the local development server:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    ```bash
+    php artisan serve
+    ```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 💡 Usage
+
+- The backend exposes an API endpoint to generate recipes.  
+- Send a POST request to `/api/recipes` with JSON body:
+
+    ```json
+    {
+      "dish": "chicken grill"
+    }
+    ```
+
+- The API will return a JSON response containing:
+
+    - `recipe` – step-by-step instructions  
+    - `ingredients` – array of ingredients with quantities  
+    - `nutrition` – calories, proteins, fats, carbohydrates  
+
+- Example response:
+
+    ```json
+    {
+      "recipe": "1. Preheat grill\n2. Season chicken\n3. Grill for 20 minutes\n4. Serve",
+      "ingredients": ["Chicken 500g", "Salt 1 tsp", "Pepper 1 tsp"],
+      "nutrition": {
+        "calories": 500,
+        "proteins": 45,
+        "fats": 20,
+        "carbs": 0
+      }
+    }
+    ```
+
+- You can use this API from any frontend, Postman, or curl for testing.
+
+---
+
+## 📈 Future Plans
+
+- Support for multi-language recipes  
+- User authentication and recipe saving  
+- Caching requests to reduce API usage and costs  
+- Interactive frontend with tabs for recipe, ingredients, and nutrition
+
+---
+
+## 👤 Author
+
+Mykhailo Dudash
