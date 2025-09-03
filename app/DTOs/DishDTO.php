@@ -4,7 +4,7 @@ namespace App\DTOs;
 
 Class DishDTO{
     public function __construct(
-        public string $recipe,
+        public array $recipe,
         public array $ingredients,
         public array $nutrition
     )

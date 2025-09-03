@@ -15,7 +15,7 @@ class DishService
         $data = $this->client->generateRecipe($dish);
 
         return new DishDTO(
-            recipe: $data['recipe'] ?? "",
+            recipe: $data['recipe'] ?? [],
             ingredients: $data['ingredients'] ?? [],
             nutrition: $data['nutrition'] ?? []
         );
